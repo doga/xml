@@ -1,6 +1,6 @@
 # XML parser and writer
 
-An XML parser and writer with namespace support. Packaged as a JavaScript ES6 module. Somewhat brittle.
+An XML parser and writer with namespace support. Packaged as a JavaScript ES6 module.
 
 ## Usage examples
 
