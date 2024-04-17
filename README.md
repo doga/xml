@@ -28,7 +28,13 @@ Running this example is safe, it will not read or write anything to your filesys
 import { Parser, Writer } from 'https://esm.sh/gh/doga/xml@1.0.0/mod.mjs';
 
 const 
-xml = `<sequence xmlns='https://qworum.net/ns/v1/instruction/'>
+xml = 
+`<!-- 
+  A Qworum script that calls a login endpoint.
+  The Web application uses the Qworum browser extension
+  to run the script.
+-->
+<sequence xmlns='https://qworum.net/ns/v1/instruction/'>
   <try>
     <call href='/login' />
     <catch faults='["* cancelled"]'>
@@ -40,11 +46,13 @@ xml = `<sequence xmlns='https://qworum.net/ns/v1/instruction/'>
   </try>
   <goto href='/account' />
 </sequence>`,
+
 doc = new Parser(xml).document, // XmlDocument
+
+// serialise the root element
 xml2 = Writer.elementToString(doc.root);
 
 console.info(xml2);
-
 ```
 
 Sample output for the code above:
@@ -75,10 +83,15 @@ Running this example is safe, it will not read or write anything to your filesys
 </details>
 
 ```javascript
-import { Parser, Writer, XmlDocument, XmlElement } from 'https://esm.sh/gh/doga/xml@1.0.0/mod.mjs';
+import { Parser, Writer, XmlDocument, XmlElement, XmlComment } from 'https://esm.sh/gh/doga/xml@1.0.0/mod.mjs';
 
 const 
 doc = new XmlDocument([
+  new XmlComment(
+    `A Qworum script that calls a login endpoint.
+    The Web application uses the Qworum browser extension
+    to run the script.`
+  ),
   new XmlElement(
     'sequence', {xmlns: 'https://qworum.net/ns/v1/instruction/'},
     [
@@ -100,10 +113,11 @@ doc = new XmlDocument([
     ]
   )
 ]),
+
+// serialise the root element
 xml = Writer.elementToString(doc.root);
 
 console.info(xml);
-
 ```
 
 Sample output for the code above:
